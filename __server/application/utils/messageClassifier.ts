@@ -1,36 +1,47 @@
-import {
-  MESSAGE_SCHEMAS,
-  type LoginResponse,
-  type TradesResponse,
-} from '../../domain/schemas/MessageSchemas';
+import { LoginResponseSchema, type LoginResponseType } from '../../domain/schemas/Login.schema';
+import { SymbolResponseSchema, type SymbolResponseType } from '../../domain/schemas/Symbol.schema';
+import { TradesResponseSchema, type TradesResponseType } from '../../domain/schemas/Trades.schema';
 
 type ClassifyMessageType =
   | {
       type: 'login';
-      data: LoginResponse;
+      data: LoginResponseType;
     }
   | {
       type: 'trades';
-      data: TradesResponse;
+      data: TradesResponseType;
+    }
+  | {
+      type: 'symbol';
+      data: SymbolResponseType;
     }
   | null;
 
 export function classifyMessage(message: unknown): ClassifyMessageType {
   if (typeof message !== 'object' || message === null) return null;
 
-  if (MESSAGE_SCHEMAS.login.safeParse(message).success) {
+  if (LoginResponseSchema.safeParse(message).success) {
     return {
       type: 'login',
-      data: MESSAGE_SCHEMAS.login.safeParse(message).data!,
+      data: LoginResponseSchema.safeParse(message).data!,
     };
   }
 
-  if (MESSAGE_SCHEMAS.trades.safeParse(message).success) {
+  if (TradesResponseSchema.safeParse(message).success) {
     return {
       type: 'trades',
-      data: MESSAGE_SCHEMAS.trades.safeParse(message).data!,
+      data: TradesResponseSchema.safeParse(message).data!,
     };
   }
+
+  if (SymbolResponseSchema.safeParse(message).success) {
+    return {
+      type: 'symbol',
+      data: SymbolResponseSchema.safeParse(message).data!,
+    };
+  }
+
+  console.error(`Parsing error: No schema fits the message - ${JSON.stringify(message, null, 2)}`);
 
   return null;
 }

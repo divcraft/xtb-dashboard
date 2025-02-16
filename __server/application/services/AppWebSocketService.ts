@@ -1,5 +1,4 @@
 import { type Server, WebSocketServer } from 'ws';
-import { type TradeRecord } from '../../domain/schemas/MessageSchemas';
 import type { ServerType } from '../../main';
 
 export class AppWebSocketService {
@@ -8,7 +7,7 @@ export class AppWebSocketService {
   private constructor(server: ServerType) {
     this.wss = new WebSocketServer({ server });
 
-    this.wss.on('connection', (ws) => {
+    this.wss.on('connection', (_ws) => {
       console.info('New client connected');
     });
   }
@@ -17,11 +16,11 @@ export class AppWebSocketService {
     return new AppWebSocketService(server);
   }
 
-  forwardTrade(trades: TradeRecord[]): void {
-    this.wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(JSON.stringify(trades));
-      }
-    });
-  }
+  // forwardTrade(trades: TradeRecord[]): void {
+  //   this.wss.clients.forEach((client) => {
+  //     if (client.readyState === WebSocket.OPEN) {
+  //       client.send(JSON.stringify(trades));
+  //     }
+  //   });
+  // }
 }
