@@ -1,0 +1,36 @@
+{
+  "name": "xtb-dashboard",
+  "author": "Tomasz Ogonowski",
+  "description": "Displaying, analyzing and reporting XTB data",
+  "version": "1.0.0",
+  "license": "ISC",
+  "main": "__server/main.ts",
+  "type": "module",
+  "scripts": {
+    "dev:client": "vite --config __client/vite.config.ts",
+    "dev:server": "nodemon --config __server/nodemon.json",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build": "vite build --config __client/vite.config.ts",
+    "start:client": "vite preview",
+    "start": "tsx __server/main.ts",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "test": ""
+  },
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "svelte": "^5.20.1",
+    "svelte-check": "^4.1.4",
+    "vite": "^6.1.0"
+  },
+  "devDependencies": {
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.4",
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
