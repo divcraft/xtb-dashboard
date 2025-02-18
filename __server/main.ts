@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import http from 'http';
+import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { getConfig, type ConfigType } from './config';
 // import { AppWebSocketService } from './application/services/AppWebSocketService';
@@ -45,6 +46,7 @@ const main = (): void => {
   const __dirname = path.dirname(__filename);
 
   app.use(express.static(path.join(__dirname, '../__client/dist')));
+  app.use(cors());
 
   app.get('/api/hello', (req, res) => {
     res.json({ message: 'Hello from the Express server!' });

@@ -2,7 +2,7 @@ import Decimal from 'decimal.js';
 import type { TradeType } from '../schemas/Trades.schema';
 import type { SymbolModel } from './Symbol.model';
 
-interface TradeAppResponse {
+export interface TradeAppResponse {
   name: string;
   group: string;
   currency: string;

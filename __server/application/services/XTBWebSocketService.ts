@@ -61,7 +61,7 @@ export class XTBWebSocketService {
           this.requestQueue.delete(requestId);
           reject(new Error('Timeout waiting for response'));
         }
-      }, 10000);
+      }, 20000);
     });
   }
 
